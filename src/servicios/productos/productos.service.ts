@@ -19,8 +19,8 @@ export class ProductosService {
         }
     }
 
-    getAll(){
-        return this.productos
+   getAll(){
+         return this.productos
     }
 
     crear(data){
