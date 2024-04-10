@@ -2,15 +2,18 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import {ProductosService} from './servicios/productos/productos.service';
 import {UsuariosService} from './servicios/usuarios/usuarios.service';
+import { MinisteriosService } from './servicios/ministerios/ministerios.service';
 import {CrearProductoDto} from './dtos/productos.dto'; //Validar los atributos de entrada para la creación de productos
 import {AgregarUsuarioDto} from './dtos/usuarios.dto'; //Validar los atributos de entrada para la creación de usuarios
+import {CrearMinisterioDto} from './dtos/ministerios.dto';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly productosService: ProductosService,
-    private readonly usuariosService: UsuariosService
+    private readonly usuariosService: UsuariosService,
+    private readonly ministeriosService: MinisteriosService
     ) {}
 
   @Get()
@@ -43,5 +46,16 @@ export class AppController {
   @Post('usuarios')
   agregarUsuario(@Body() body:AgregarUsuarioDto){
     return this.usuariosService.crear(body);
+  }
+
+  //Ministerios
+  @Get('ministerios')
+  getMinisterios(){
+    return this.ministeriosService.getAll();
+  }
+
+  @Post('ministerios')
+  agregarMinisterio(@Body() body:CrearMinisterioDto){
+    return this.ministeriosService.crearMinisterio(body)
   }
 }
